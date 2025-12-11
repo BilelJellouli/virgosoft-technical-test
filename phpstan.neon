@@ -1,0 +1,26 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/tomasvotruba/type-coverage/config/extension.neon
+
+parameters:
+    paths:
+        - app/
+        - database/
+    excludePaths:
+        - */Tests/*
+    level: 8
+    tmpDir: storage/framework/cache/phpstan
+
+    type_coverage:
+        return: 100
+        param: 100
+        property: 100
+
+    ignoreErrors:
+#        - identifier: missingType.iterableValue
+#          path: '*/app/*'
+
+        - identifier: missingType.generics
+          paths:
+              - '*/app/*'
+              - '*/database/*'
