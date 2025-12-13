@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->index()->constrained()->cascadeOnDelete();
-            $table->string('symbol');
             $table->string('side');
+            $table->string('symbol');
             $table->decimal('price', 8, 2)->default(0);
             $table->decimal('amount', 8, 2)->default(0);
             $table->unsignedTinyInteger('status')->default(OrderStatus::OPEN);
