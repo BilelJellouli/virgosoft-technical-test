@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Actions\CancelOrderAction;
@@ -20,7 +22,7 @@ class CancelOrdersController extends Controller
         /** @var User $user */
         $user = $request->user();
 
-        if ( $user->id !== $order->user_id) {
+        if ($user->id !== $order->user_id) {
             abort(ResponseCode::HTTP_FORBIDDEN, 'You are not allowed to cancel this order.');
         }
 
@@ -30,7 +32,7 @@ class CancelOrdersController extends Controller
             throw ValidationException::withMessages([
                 'order' => $exception->getMessage(),
             ]);
-        };
+        }
 
         return response()->noContent();
     }

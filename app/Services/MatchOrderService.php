@@ -1,32 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use App\Actions\UpdateOrderStatusAction;
 use App\Enums\OrderSide;
 use App\Enums\OrderStatus;
 use App\Events\OrderMatched;
-use App\Models\Order;
 use App\Models\Asset;
+use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 
 class MatchOrderService
 {
-    public function __construct(private UpdateOrderStatusAction $updateOrderStatus)
-    {
-    }
+    public function __construct(private readonly UpdateOrderStatusAction $updateOrderStatus) {}
 
-    public function matchBuy(Order $buyOrder)
+    public function matchBuy(Order $buyOrder): void
     {
         $this->matchOrder($buyOrder, OrderSide::SELL, '<=');
     }
 
-    public function matchSell(Order $sellOrder)
+    public function matchSell(Order $sellOrder): void
     {
         $this->matchOrder($sellOrder, OrderSide::BUY, '>=');
     }
 
-    private function matchOrder(Order $order, OrderSide $counterSide, string $priceOperator)
+    private function matchOrder(Order $order, OrderSide $counterSide, string $priceOperator): void
     {
         $counterOrder = Order::where('symbol', $order->symbol)
             ->where('side', $counterSide)
@@ -39,7 +39,7 @@ class MatchOrderService
             return;
         }
 
-        DB::transaction(function () use ($order, $counterOrder) {
+        DB::transaction(function () use ($order, $counterOrder): void {
             $buyer = $order->side === OrderSide::BUY ? $order->user()->lockForUpdate()->first() : $counterOrder->user()->lockForUpdate()->first();
             $seller = $order->side === OrderSide::SELL ? $order->user()->lockForUpdate()->first() : $counterOrder->user()->lockForUpdate()->first();
 

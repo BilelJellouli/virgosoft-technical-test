@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions;
 
 use App\Enums\OrderSide;
@@ -9,9 +11,7 @@ use App\Models\Order;
 
 class CancelOrderAction
 {
-    public function __construct(protected UpdateOrderStatusAction $updateOrderStatus)
-    {
-    }
+    public function __construct(protected UpdateOrderStatusAction $updateOrderStatus) {}
 
     public function execute(Order $order): void
     {

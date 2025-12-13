@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Events;
 
 use App\Models\Order;
@@ -11,19 +13,20 @@ use Illuminate\Queue\SerializesModels;
 
 class OrderMatched implements ShouldBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     public function __construct(
         public readonly Order $order,
         public readonly Order $counterOrder
-    ) {
-    }
+    ) {}
 
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('user.' . $this->order->user_id),
-            new PrivateChannel('user.' . $this->counterOrder->user_id),
+            new PrivateChannel('user.'.$this->order->user_id),
+            new PrivateChannel('user.'.$this->counterOrder->user_id),
         ];
     }
 }

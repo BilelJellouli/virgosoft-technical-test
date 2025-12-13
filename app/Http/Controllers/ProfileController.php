@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ProfileResource;
@@ -8,7 +10,7 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): array
     {
         /** @var User $user */
         $user = $request->user()->load('orders', 'assets');

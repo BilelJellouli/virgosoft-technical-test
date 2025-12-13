@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Events;
 
 use App\Models\Order;
@@ -9,8 +11,9 @@ use Illuminate\Queue\SerializesModels;
 
 class BuyingOrderCreated
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
-    public function __construct(public readonly Order $order)
-    {
-    }
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
+
+    public function __construct(public readonly Order $order) {}
 }

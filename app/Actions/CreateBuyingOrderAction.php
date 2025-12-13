@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions;
 
 use App\Enums\AssetSymbols;
@@ -23,7 +25,7 @@ class CreateBuyingOrderAction
             $total = $price * $quantity;
 
             if ($user->balance < $total) {
-                throw new InsufficientBalanceException();
+                throw new InsufficientBalanceException;
             }
 
             $user->lockForUpdate()->update([
