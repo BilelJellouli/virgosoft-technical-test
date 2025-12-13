@@ -10,7 +10,7 @@ use App\Models\Order;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
-class CreateSellingOrder
+class CreateSellingOrderAction
 {
     public function execute(
         User $user,

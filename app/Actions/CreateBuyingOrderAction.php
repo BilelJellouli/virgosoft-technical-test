@@ -11,7 +11,7 @@ use App\Models\Order;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
-class CreateBuyingOrder
+class CreateBuyingOrderAction
 {
     public function execute(
         User $user,
