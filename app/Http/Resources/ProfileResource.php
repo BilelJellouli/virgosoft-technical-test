@@ -19,7 +19,6 @@ class ProfileResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->resource->id,
             'name' => $this->resource->name,
             'email' => $this->resource->email,
             'balance' => $this->resource->balance,
